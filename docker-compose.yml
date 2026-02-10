@@ -15,9 +15,9 @@ services:
     depends_on:
       - service-discovery
 
-  ms-gatway:
-    build: ./ms-gatway
-    container_name: ms-gatway
+  ms-gateway:
+    build: ./ms-gateway
+    container_name: ms-gateway
     ports:
       - "8888:8888"
     depends_on:

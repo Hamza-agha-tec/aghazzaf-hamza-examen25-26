@@ -1,0 +1,30 @@
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: ms-gatway
+
+  cloud:
+    gateway:
+      routes:
+        - id: ms-livre
+          uri: lb://MS-LIVRE
+          predicates:
+            - Path=/api/livre/**
+
+        - id: ms-etudiant
+          uri: lb://MS-ETUDIANT
+          predicates:
+            - Path=/api/etudiants/**
+
+        - id: ms-emprunt
+          uri: lb://MS-EMPRUNT
+          predicates:
+            - Path=/api/emprunts/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-discovery:8761/eureka

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ms-livre
+  cloud:
+    config:
+      uri: http://ms-config:9999
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-discovery:8761/eureka

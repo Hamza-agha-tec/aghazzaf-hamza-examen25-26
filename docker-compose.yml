@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+
+  service-discovery:
+    build: ./service-discovery
+    container_name: service-discovery
+    ports:
+      - "8761:8761"
+
+  ms-config:
+    build: ./ms-config
+    container_name: ms-config
+    ports:
+      - "9999:9999"
+    depends_on:
+      - service-discovery
+
+  ms-gatway:
+    build: ./ms-gatway
+    container_name: ms-gatway
+    ports:
+      - "8888:8888"
+    depends_on:
+      - service-discovery
+      - ms-config
+
+  bus-service:
+    build: ./bus-service
+    container_name: bus-service
+    ports:
+      - "7072:7072"
+    depends_on:
+      - service-discovery
+      - ms-config
+
+  service-route:
+    build: ./service-route
+    container_name: service-route
+    ports:
+      - "7071:7071"
+    depends_on:
+      - bus-service
+      - service-discovery
+      - ms-config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:7071/actuator/health"]
+
+  ticket-service:
+    build: ./ticket-service
+    container_name: ticket-service
+    ports:
+      - "7073:7073"
+    depends_on:
+      - service-discovery
+      - ms-config
+      - service-route
+      - bus-service

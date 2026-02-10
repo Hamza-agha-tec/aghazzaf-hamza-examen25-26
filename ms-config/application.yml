@@ -1,0 +1,11 @@
+server:
+  port: 9999
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Hamza-agha-tec/ecom-config-repo.git
+          username: Hamza-agha-tec
+          password: ghp_YourGitHubTokenHere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
